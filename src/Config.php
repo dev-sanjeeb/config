@@ -121,4 +121,41 @@ class Config implements ConfigInterface
 
         return true;
     }
+
+    /**
+     * Merge given tree with config tree
+     *
+     * @param array $tree
+     * @return boolean
+     */
+    public function merge(array $tree) :bool {
+        $this->configTree = array_replace_recursive($this->configTree, $tree);
+        return true;
+    }
+
+    /**
+     * Load raw text with parser type
+     *
+     * @param array $rawContents
+     * @return void
+     */
+    public function loadRawText(array $rawContents) {
+        foreach($rawContents as $rawContent) {
+            $tree = $this->parseData($rawContent['content'] ?? '', $rawContent['type'] ?? '');
+            $this->merge($tree);
+        }
+    }
+
+   /**
+    * Parse content using give parser type
+    *
+    * @param string $content
+    * @param string $parserType
+    * @return array
+    */
+    protected function parseData(string $content, string $parserType) :array {
+        $parserObject = ParserFactory::getParser($parserType);
+
+        return $parserObject->decode($content);
+    }
 }
