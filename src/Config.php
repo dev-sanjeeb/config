@@ -27,21 +27,23 @@ class Config implements ConfigInterface
      * 
      * Returns default if key is not found.
      *
-     * @param string $key
+     * @param string|null $key
      * @param mixed $default
      * @return mixed
      */
-    public function get(string $key, $default = null)
+    public function get(?string $key = null, $default = null)
     {
         $tempConfig = $this->configTree;
 
-        foreach (explode('.', $key) as $k) {
-            if (!isset($tempConfig[$k])) {
-                return $default;
-            }
+        if (!is_null($key)) {
+            foreach (explode('.', $key) as $k) {
+                if (!isset($tempConfig[$k])) {
+                    return $default;
+                }
 
-            $tempConfig = $tempConfig[$k];
-        }
+                $tempConfig = $tempConfig[$k];
+            }
+        }    
 
         return $tempConfig;
     }
@@ -78,7 +80,15 @@ class Config implements ConfigInterface
      */
     public function unset(string $key) :bool 
     {
+        $configTree = &$this->configTree;
 
+        foreach (explode('.', $key) as $k) {
+            $configTree = &$configTree[$k];
+        }
+
+        $configTree = null;
+
+        return true;
     }
 
     /**
@@ -89,7 +99,15 @@ class Config implements ConfigInterface
      */
     public function has(string $key) :bool 
     {
+        $configTree = $this->configTree;
 
+        foreach (explode('.', $key) as $k) {
+            if (!isset($configTree[$k])) { 
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -99,6 +117,8 @@ class Config implements ConfigInterface
      */
     public function reset() :bool 
     {
+        $this->configTree = [];
 
+        return true;
     }
 }

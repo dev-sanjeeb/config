@@ -20,11 +20,11 @@ interface ConfigInterface
      * 
      * Returns default if key is not found.
      *
-     * @param string $key
+     * @param string|null $key
      * @param mixed $default
      * @return mixed
      */
-    public function get(string $key, $default = null);
+    public function get(?string $key = null, $default = null);
 
     /**
      * Sets the value for given key.

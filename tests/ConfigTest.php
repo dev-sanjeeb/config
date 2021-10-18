@@ -42,4 +42,47 @@ class ConfigTest extends TestCase
         $config = new Config();
         $this->assertEquals('sanjeeb', $config->get('name', 'sanjeeb'));
     }
+
+    /**
+	 * Checks if get would return all data if no parameter is passed
+	 */
+    public function test_it_can_retrieve_all()
+    {
+        $config = new Config();
+        $config->set('name', 'sanjeeb');
+        $this->assertEquals(['name' => 'sanjeeb'], $config->get());
+    }
+
+    /**
+	 * Checks if it would reset all data
+	 */
+    public function test_it_can_reset_all_data()
+    {
+        $config = new Config();
+        $config->set('name', 'sanjeeb');
+        $this->assertTrue($config->reset());
+        $this->assertEquals([], $config->get());
+    }
+
+    /**
+	 * Checks if it would unset given key
+	 */
+    public function test_it_unset_given_key()
+    {
+        $config = new Config();
+        $config->set('emp.name', 'sanjeeb');
+        $this->assertTrue($config->unset('emp.name'));
+        $this->assertEquals(['emp' => ['name' => null]], $config->get());
+    }
+
+    /**
+	 * Checks if has method can check whether a key exists or not
+	 */
+    public function test_it_can_check_whether_a_key_exists()
+    {
+        $config = new Config();
+        $this->assertEquals(false, $config->has('name'));
+        $config->set('name', 'sanjeeb');
+        $this->assertEquals(true, $config->has('name'));
+    }
 }
