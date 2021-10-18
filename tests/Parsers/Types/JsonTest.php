@@ -1,9 +1,9 @@
 <?php
 
-namespace SR\Config\Tests;
+namespace SR\Config\Tests\Parsers\Types;
 
 /**
- * ConfigTest
+ * JsonTest
  *
  * @package   SR\Config
  *
