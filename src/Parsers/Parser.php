@@ -13,6 +13,8 @@ namespace SR\Config\Parsers;
  * @link      https://github.com/dev-sanjeeb/config
  */
 
+use SR\Config\Parsers\Exceptions\InvalidContentException;
+
 /**
  * Interface Parser
  *
@@ -24,7 +26,9 @@ interface Parser
     * Convert string to array
     *
     * @param string $content
-    * @return array|null
+    * @return array
+    *
+    * @throws InvalidContentException
     */
-    public function decode(string $content): ?array;
+    public function decode(string $content): array;
 }
