@@ -26,15 +26,18 @@ trait FileHelper {
     protected function getFileData($files) :array 
     {
         $fileData = [];
+
         switch (gettype($files)) {
             case "array":
                 foreach($files as $file) {
                     $fileData[] = $this->getFileContents($file); 
                 }
-              break;
+
+                break;
             case "string":
-                $fileData[] = $this->getFileContents($files); 
-              break;
+                $fileData[] = $this->getFileContents($files);
+                 
+                break;
             default:
                 throw new \InvalidArgumentException('$files must be a string or an array.');
         }
@@ -55,7 +58,9 @@ trait FileHelper {
         if (!file_exists($filename)) {
             throw new \InvalidArgumentException("invalid file path: $filename");
         }
+
         $content = file_get_contents($filename);
+
         return ['type' => $this->getFileExtension($filename), 'content' => $content];
     }  
 

@@ -146,6 +146,7 @@ class Config implements ConfigInterface
     public function merge(array $tree) :bool 
     {
         $this->configTree = array_replace_recursive($this->configTree, $tree);
+        
         return true;
     }
 
