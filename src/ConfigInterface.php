@@ -57,4 +57,20 @@ interface ConfigInterface
      * @return boolean
      */
     public function reset() :bool;
+
+    /**
+     * Merge given tree with config tree
+     *
+     * @param array $tree
+     * @return boolean
+     */
+    public function merge(array $tree) :bool;
+
+    /**
+     * Load raw text with parser type
+     *
+     * @param array $rawContents
+     * @return void
+     */
+    public function loadRawText(array $rawContents);
 }

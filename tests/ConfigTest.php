@@ -85,4 +85,72 @@ class ConfigTest extends TestCase
         $config->set('name', 'sanjeeb');
         $this->assertEquals(true, $config->has('name'));
     }
+
+    /**
+	 * Checks if merge would merge data with config tree 
+	 */
+    public function test_it_can_merge_data()
+    {
+        $config = new Config();
+        $config->set('emp.name', 'sanjeeb');
+        $this->assertEquals(true, $config->merge(['emp' => ['age' => 20]]));
+        $this->assertEquals(
+            ['emp' => ['name' => 'sanjeeb', 'age' => 20]], 
+            $config->get()
+        );
+    }
+
+    /**
+	 * Checks if merge would merge data with config tree 
+	 */
+    public function test_it_can_parse_data()
+    {
+        $class = new \ReflectionClass('SR\Config\Config');
+        $method = $class->getMethod('parseData');
+        $method->setAccessible(true);
+
+        $config = new Config();
+
+        $this->assertEquals(
+            [
+                "a" => 1,
+                "b" => 2,
+                "c" => 3,
+                "d" => 4,
+                "e" => 5,
+            ], 
+            $method->invokeArgs(
+                $config,
+                [
+                    '{"a":1,"b":2,"c":3,"d":4,"e":5}',
+                    'json'
+                ]
+            )
+        );
+    }
+
+    /**
+	 * Checks if merge would merge data with config tree 
+	 */
+    public function test_it_can_load_raw_text_with_given_format()
+    {
+        $config = new Config();
+        $config->loadRawText(
+            [[
+                'content' => '{"a":1,"b":2,"c":3,"d":4,"e":5}',
+                'type' => 'json'
+            ]]
+        );
+        
+        $this->assertEquals(
+            [
+                "a" => 1,
+                "b" => 2,
+                "c" => 3,
+                "d" => 4,
+                "e" => 5,
+            ], 
+            $config->get()
+        );
+    }
 }
