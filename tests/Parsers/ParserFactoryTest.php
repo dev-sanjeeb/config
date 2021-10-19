@@ -41,4 +41,14 @@ class ParserFactoryTest extends TestCase
             $json->decode('{"a":1,"b":2,"c":3,"d":4,"e":5}')
         );
     }
+
+    /**
+	 * Checks if parser factory unable to give valid parser object
+	 */
+    public function test_parser_factory_with_invalid_parser()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('json1 type is not supported.');
+        $json = ParserFactory::getParser('json1');
+    }
 }

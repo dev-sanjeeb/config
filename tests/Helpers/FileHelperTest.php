@@ -85,7 +85,7 @@ class FileHelperTest extends TestCase
     }
 
     /**
-	 * Checks if get file contents will works with string data type
+	 * Checks if get file extension will works with valid extension
 	 */
     public function test_get_file_extension_will_return_valid_array()
     {
@@ -97,9 +97,9 @@ class FileHelperTest extends TestCase
     }
 
     /**
-	 * Checks if get file contents will works with string data type
+	 * Checks if get file extension will throws exception with invalid files extension
 	 */
-    public function test_get_file_1_extension_will_return_valid_array()
+    public function test_get_file_extension_with_invalid_data_will_throw_exception()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('invalid file extension: abc');
