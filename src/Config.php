@@ -14,15 +14,28 @@ namespace SR\Config;
  */
 
 use SR\Config\Parsers\ParserFactory;
+use SR\Config\Helpers\FileHelper;
 
 class Config implements ConfigInterface
 {
+    use FileHelper;
+
     /**
      * Collection of nested key attributes and values.
      *
      * @var array
      */
     protected $configTree = [];
+    
+    /**
+     * construct
+     *
+     * @param array|null $files
+     */
+    public function __construct(?array $files = [])
+    {
+        $this->loadFiles($files);
+    }
 
     /**
      * Returns the value for given key. 
@@ -148,6 +161,18 @@ class Config implements ConfigInterface
             $tree = $this->parseData($rawContent['content'] ?? '', $rawContent['type'] ?? '');
             $this->merge($tree);
         }
+    }
+
+    /**
+     * Load raw text with parser type
+     *
+     * @param array|string $files
+     * @return void
+     */
+    public function loadFiles($files) 
+    {
+        $fileData = $this->getFileData($files);
+        $this->loadRawText($fileData);
     }
 
    /**
