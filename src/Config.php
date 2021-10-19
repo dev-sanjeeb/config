@@ -128,7 +128,8 @@ class Config implements ConfigInterface
      * @param array $tree
      * @return boolean
      */
-    public function merge(array $tree) :bool {
+    public function merge(array $tree) :bool 
+    {
         $this->configTree = array_replace_recursive($this->configTree, $tree);
         return true;
     }
@@ -139,7 +140,8 @@ class Config implements ConfigInterface
      * @param array $rawContents
      * @return void
      */
-    public function loadRawText(array $rawContents) {
+    public function loadRawText(array $rawContents) 
+    {
         foreach($rawContents as $rawContent) {
             $tree = $this->parseData($rawContent['content'] ?? '', $rawContent['type'] ?? '');
             $this->merge($tree);
@@ -153,7 +155,8 @@ class Config implements ConfigInterface
     * @param string $parserType
     * @return array
     */
-    protected function parseData(string $content, string $parserType) :array {
+    protected function parseData(string $content, string $parserType) :array 
+    {
         $parserObject = ParserFactory::getParser($parserType);
 
         return $parserObject->decode($content);
