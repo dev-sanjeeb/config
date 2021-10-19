@@ -101,7 +101,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-	 * Checks if merge would merge data with config tree 
+	 * Checks if it would able to parse data
 	 */
     public function test_it_can_parse_data()
     {
@@ -130,7 +130,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-	 * Checks if merge would merge data with config tree 
+	 * Checks if it would load config raw text from load raw text 
 	 */
     public function test_it_can_load_raw_text_with_given_format()
     {
@@ -141,6 +141,47 @@ class ConfigTest extends TestCase
                 'type' => 'json'
             ]]
         );
+        
+        $this->assertEquals(
+            [
+                "a" => 1,
+                "b" => 2,
+                "c" => 3,
+                "d" => 4,
+                "e" => 5,
+            ], 
+            $config->get()
+        );
+    }
+
+    /**
+	 * Checks if it would load config file from load files 
+	 */
+    public function test_it_can_load_files_with_given_format()
+    {
+        $config = new Config();
+        $config->loadFiles(
+            [__DIR__.'/files/test.json']
+        );
+        
+        $this->assertEquals(
+            [
+                "a" => 1,
+                "b" => 2,
+                "c" => 3,
+                "d" => 4,
+                "e" => 5,
+            ], 
+            $config->get()
+        );
+    }
+
+    /**
+	 * Checks if it would load config file from constructor 
+	 */
+    public function test_it_can_load_files_from_constructor()
+    {
+        $config = new Config([__DIR__.'/files/test.json']);
         
         $this->assertEquals(
             [
