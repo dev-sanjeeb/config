@@ -1,6 +1,7 @@
 {
     "name": "dev-sanjeeb/config",
     "description": "This project is focused around writing a parser for configuration files.",
+    "keywords": ["parser", "config", "json"],
     "license": "MIT",
     "authors": [
         {
