@@ -85,7 +85,7 @@ $config->set('database.host', '127.0.0.1');
 ```php
 $config = new Config();
 
-// Setting value
+// merge value
 $config->merge(['database' => ['host'] => '127.0.0.1']);
 ```
 
@@ -94,8 +94,8 @@ $config->merge(['database' => ['host'] => '127.0.0.1']);
 ```php
 $config = new Config();
 
-// Setting value
-$config->set();
+// Resetting value
+$config->reset();
 ```
 
 
