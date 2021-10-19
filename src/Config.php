@@ -13,6 +13,8 @@ namespace SR\Config;
  * @link      https://github.com/dev-sanjeeb/config
  */
 
+use SR\Config\Parsers\ParserFactory;
+
 class Config implements ConfigInterface
 {
     /**
